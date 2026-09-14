@@ -1,6 +1,6 @@
 [versions]
 activityCompose = "1.10.1"
-agp = "8.8.2"
+agp = "9.4.0"
 codeScanner = "16.1.0"
 composeBom = "2025.02.00"
 coreKtx = "1.19.0"
@@ -43,7 +43,6 @@ yuyuyuyuyu-createtypography = { module = "dev.yuyuyuyuyu:createtypography", vers
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint" }
 version-catalog-update = { id = "nl.littlerobots.version-catalog-update", version.ref = "versionCatalogUpdate" }
