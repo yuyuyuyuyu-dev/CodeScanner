@@ -1,21 +1,21 @@
 [versions]
 activityCompose = "1.10.1"
-agp = "8.8.2"
+agp = "9.4.0"
 codeScanner = "16.1.0"
 composeBom = "2025.02.00"
-coreKtx = "1.15.0"
-createTypography = "0.1.0"
+coreKtx = "1.19.0"
+createTypography = "0.2.0"
 detekt = "1.23.8"
-espressoCore = "3.6.1"
-googlePlayServicesBase = "18.5.0"
-googlePlayServicesTfliteJava = "16.4.0"
+espressoCore = "3.7.0"
+googlePlayServicesBase = "18.10.1"
+googlePlayServicesTfliteJava = "16.5.0"
 junit = "4.13.2"
-junitVersion = "1.2.1"
-kotlin = "2.1.10"
+junitVersion = "1.3.0"
+kotlin = "2.4.20"
 ktlint = "14.2.0"
 lifecycleRuntimeKtx = "2.8.7"
 lifecycleViewModelCompose = "2.8.7"
-robolectric = "4.15.1"
+robolectric = "4.17"
 versionCatalogUpdate = "1.1.1"
 
 [libraries]
@@ -43,7 +43,6 @@ yuyuyuyuyu-createtypography = { module = "dev.yuyuyuyuyu:createtypography", vers
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint" }
 version-catalog-update = { id = "nl.littlerobots.version-catalog-update", version.ref = "versionCatalogUpdate" }
