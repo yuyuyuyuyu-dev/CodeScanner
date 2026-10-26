@@ -4,72 +4,42 @@ on:
     branches:
       - main
   pull_request:
-permissions:
-  contents: read
+permissions: {}
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 jobs:
+  oxfmt:
+    name: Oxfmt
+    permissions:
+      contents: read
+    uses: yuyuyuyuyu-dev/repo-config/.github/workflows/oxfmt.yml@main
+  kotlin-lint:
+    name: Kotlin lint
+    permissions:
+      contents: read
+    uses: yuyuyuyuyu-dev/repo-config/.github/workflows/kotlin-lint.yml@main
   unit-test:
     name: Unit test
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@v7
-      - uses: actions/setup-java@v6
         with:
-          distribution: temurin
-          java-version: 21
-      - uses: gradle/actions/setup-gradle@v6
+          persist-credentials: false
+      - uses: yuyuyuyuyu-dev/repo-config/.github/actions/setup-jdk-and-gradle@main
       - run: ./gradlew testDebugUnitTest
       - uses: actions/upload-artifact@v7
         if: failure()
         with:
           name: test-reports
           path: app/build/reports/tests
-  detekt:
-    name: Detekt
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      security-events: write
-    steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-java@v6
-        with:
-          distribution: temurin
-          java-version: 21
-      - uses: gradle/actions/setup-gradle@v6
-      - run: ./gradlew detekt
-      - uses: github/codeql-action/upload-sarif@v4
-        if: success() || failure()
-        with:
-          sarif_file: app/build/reports/detekt/detekt.sarif
-  ktlint:
-    name: ktlint
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-java@v6
-        with:
-          distribution: temurin
-          java-version: 21
-      - uses: gradle/actions/setup-gradle@v6
-      - run: ./gradlew ktlintCheck
-  version-catalog-format:
-    name: Version catalog format
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-java@v6
-        with:
-          distribution: temurin
-          java-version: 21
-      - uses: gradle/actions/setup-gradle@v6
-      - run: ./gradlew versionCatalogFormat
-      - run: git diff --exit-code
   actionlint:
     name: actionlint
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@v7
       - name: Download actionlint
@@ -79,11 +49,3 @@ jobs:
       - name: Check workflow files
         run: ${{ steps.get_actionlint.outputs.executable }} -color
         shell: bash
-  yamlfmt:
-    name: yamlfmt
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v7
-      - uses: docker://ghcr.io/google/yamlfmt:latest
-        with:
-          args: -lint .
