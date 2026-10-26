@@ -7,12 +7,12 @@ plugins {
 
 android {
     namespace = "io.github.yukoba.codescanner"
-    compileSdk = 37
+    compileSdk = providers.gradleProperty("sdk.compile").get().toInt()
 
     defaultConfig {
         applicationId = "io.github.yukoba.codescanner"
-        minSdk = 24
-        targetSdk = 35
+        minSdk = providers.gradleProperty("sdk.min").get().toInt()
+        targetSdk = providers.gradleProperty("sdk.target").get().toInt()
         versionCode = 1
         versionName = "0.1.0"
 
@@ -45,7 +45,17 @@ android {
 
 detekt {
     buildUponDefaultConfig = true
-    basePath = rootProject.projectDir.absolutePath
+}
+
+ktlint {
+    version = libs.versions.ktlintCli.get()
+    filter {
+        val buildPath =
+            layout.buildDirectory
+                .get()
+                .asFile.path + File.separator
+        exclude { it.file.path.startsWith(buildPath) }
+    }
 }
 
 dependencies {

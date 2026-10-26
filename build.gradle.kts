@@ -6,3 +6,7 @@ plugins {
     alias(libs.plugins.ktlint)
     alias(libs.plugins.version.catalog.update)
 }
+
+ktlint {
+    version = libs.versions.ktlintCli.get()
+}
